@@ -37,6 +37,8 @@ var examples = []struct {
 	},
 }
 
+var bench = examples[0]
+
 func Test_examples_countNegatives(t *testing.T) {
 	for i, e := range examples {
 		got := countNegatives(e.grid)
@@ -46,5 +48,29 @@ func Test_examples_countNegatives(t *testing.T) {
 				i, got, e.want,
 			)
 		}
+	}
+}
+
+func Benchmark_examples_countNegatives(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		countNegatives(bench.grid)
+	}
+}
+
+func Test_examples_countNegativesBisect(t *testing.T) {
+	for i, e := range examples {
+		got := countNegativesBisect(e.grid)
+		if got != e.want {
+			t.Fatalf(
+				"\ni:%v\ngot:%v\nwant:%v\n",
+				i, got, e.want,
+			)
+		}
+	}
+}
+
+func Benchmark_examples_countNegativesBisect(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		countNegativesBisect(bench.grid)
 	}
 }
